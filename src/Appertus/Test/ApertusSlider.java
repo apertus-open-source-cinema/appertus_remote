@@ -65,7 +65,7 @@ public class ApertusSlider extends HorizontalScrollView {
 		} else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
 		    // Snap to closes value
 		    int scrollX = getScrollX();
-		    int featureWidth = 100;// Snapping to
+		    int featureWidth = 50;// Snapping to
 		    mActiveFeature = ((scrollX + (featureWidth / 2)) / featureWidth);
 		    int scrollTo = mActiveFeature * featureWidth;
 		    smoothScrollTo(scrollTo, 0);

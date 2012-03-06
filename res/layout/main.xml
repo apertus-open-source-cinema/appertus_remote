@@ -9,7 +9,7 @@
 		android:layout_width="wrap_content" android:layout_height="wrap_content">
 		<LinearLayout android:orientation="horizontal"
 			android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<ImageView android:id="@+id/test_image" android:src="@drawable/test"
+			<ImageView android:id="@+id/test_image" android:src="@drawable/shutterslider"
 				android:layout_width="wrap_content" android:layout_height="wrap_content" />
 		</LinearLayout>
 	</apertus.remote.ApertusSlider>

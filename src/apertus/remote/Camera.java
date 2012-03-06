@@ -50,6 +50,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.app.Activity;
+
 enum CamogmState {
 
     NOTRUNNING, STOPPED, RECORDING
@@ -2464,67 +2466,7 @@ public class Camera {
 	}
     }
 
-    public boolean PingCamera(int Index) {
-	if (Parent.GetNoCameraParameter()) {
-	    return true;
-	}
-	URLConnection conn = null;
-	BufferedReader data = null;
-	String line;
-
-	String result;
-
-	StringBuffer buf = new StringBuffer();
-
-	// try to connect
-	try {
-	    conn = this.CameraPingUrl[Index].openConnection();
-	    conn.setConnectTimeout(3000);
-	    conn.setReadTimeout(3000);
-	    conn.connect();
-
-	    data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-	    buf.delete(0, buf.length());
-	    while ((line = data.readLine()) != null) {
-		buf.append(line + "\n");
-	    }
-
-	    result = buf.toString();
-	    data.close();
-
-	    // try to extract data from XML structure
-	    try {
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db = dbf.newDocumentBuilder();
-
-		Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
-		doc.getDocumentElement().normalize();
-		NodeList nodeLst = doc.getElementsByTagName("response");
-		for (int s = 0; s < nodeLst.getLength(); s++) {
-		    Node fstNode = nodeLst.item(s);
-		    if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-			Element fstElmnt = (Element) fstNode;
-			NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("ping");
-
-			Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-			NodeList fstNm = fstNmElmnt.getChildNodes();
-			String response = ((Node) fstNm.item(0)).getNodeValue();
-			if (response.compareTo("\"pong\"") != 0) {
-			    return true;
-			}
-		    }
-		}
-	    } catch (Exception e) {
-		e.printStackTrace();
-		return false;
-	    }
-	} catch (IOException e) {
-	    Parent.WriteErrortoConsole("Pinging Camera IO Error: " + e.getMessage());
-	    return false;
-	}
-	return false;
-    }
+   
 
     public void UpdateCameraData() throws Exception {
 	if (Parent.GetNoCameraParameter()) {

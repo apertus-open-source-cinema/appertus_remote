@@ -37,12 +37,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class Main extends Activity {
-    private static final String Color = null;
-    /** Called when the activity is first created. */
-    private TextView mTextresult;
     private TextView mSliderPos;
     private ApertusSlider mShutterTime;
-    Camera Apertus;
+    private Camera Apertus;
+    private TextView ResolutionTextView;
     static int Debuglevel;
     static boolean NoCameraParameter = false;
 
@@ -56,13 +54,19 @@ public class Main extends Activity {
 	StrictMode.setThreadPolicy(tp);
 
 	Apertus = new Camera(this);
-	
-	mTextresult = (TextView) findViewById(R.id.result1);
+
 	mShutterTime = (ApertusSlider) findViewById(R.id.slider1);
 	mShutterTime.getScrollX();
 	mSliderPos = (TextView) findViewById(R.id.slidepos);
 
 	mShutterTime.SetTextView(mSliderPos);
+
+	ResolutionTextView = (TextView) findViewById(R.id.ResolutionTextView);
+	ResolutionTextView.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		//ConnectCamera(view);
+	    }
+	});
     }
 
     public boolean GetNoCameraParameter() {

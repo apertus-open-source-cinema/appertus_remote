@@ -66,6 +66,7 @@ public class Connect extends Activity {
 	    // Ping Camera
 	    if (PingCamera(IP.getText().toString())) {
 		Intent myIntent = new Intent(view.getContext(), Main.class);
+		myIntent.putExtra("IP", IP.getText().toString());
 		startActivityForResult(myIntent, 0);
 	    } else {
 		Calendar cal = Calendar.getInstance();

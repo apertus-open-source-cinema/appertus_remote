@@ -215,7 +215,7 @@ public class Camera {
     private Main Parent;
 
     Camera(Main parent) {
-	this.Parent = Parent;
+	this.Parent = parent;
 	this.ImageHeight = 0;
 	this.ImageWidth = 0;
 	this.ImageWOILeft = new int[2];
@@ -722,7 +722,7 @@ public class Camera {
 
     public void SetWhiteBalance(WhiteBalance newbalance) {
 	for (int i = 0; i < this.IP.length; i++) {
-	    Parent.WriteLogtoConsole(GetIP()[i] + ": Setting WhiteBalance to " + newbalance);
+	    //Parent.WriteLogtoConsole(GetIP()[i] + ": Setting WhiteBalance to " + newbalance);
 
 	    this.ImageWhiteBalance = newbalance;
 	    float GainR, GainB, GainG, GainGB;

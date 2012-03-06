@@ -3,4 +3,20 @@
     <string name="app_name">Appertus Remote</string>
     <string name="Connect">Connect</string>
     <string name="IP">192.168.10.141</string>
+    <string-array name="WB_array">
+        <item>Daylight</item>
+        <item>Tungsten</item>
+        <item>Flourescent</item>
+        <item>Cloudy</item>
+        <item>Auto</item>
+        <item>Custom</item>
+    </string-array>
+    <string-array name="Resolution_array">
+        <item>Full</item>
+        <item>Cimax</item>
+        <item>Amax</item>
+        <item>1080p</item>
+        <item>720p</item>
+        <item>Custom</item>
+    </string-array>
 </resources>

@@ -30,19 +30,29 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class Main extends Activity {
     private TextView mSliderPos;
     private ApertusSlider mShutterTime;
     private Camera Apertus;
     private TextView ResolutionTextView;
+    private Spinner ResolutionSpinner;
+    private Spinner WBSpinner;
     static int Debuglevel;
     static boolean NoCameraParameter = false;
+    private Boolean Armed = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,18 +65,110 @@ public class Main extends Activity {
 
 	Apertus = new Camera(this);
 
+	// Retrieve Bundled Extra Data
+	Bundle extras = getIntent().getExtras();
+	if (extras != null) {
+	    String[] IP = new String[1];
+	    IP[0] = extras.getString("IP");
+	    Apertus.SetIP(IP);
+	    Apertus.InitCameraConnection();
+
+	}
+
+	ResolutionSpinner = (Spinner) findViewById(R.id.ResolutionSpinner);
+	ArrayAdapter<CharSequence> ResolutionAdapter = ArrayAdapter.createFromResource(this, R.array.Resolution_array,
+		android.R.layout.simple_spinner_item);
+	ResolutionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	ResolutionSpinner.setAdapter(ResolutionAdapter);
+	ResolutionSpinner.setOnItemSelectedListener(new ResolutionOnItemSelectedListener());
+
+	WBSpinner = (Spinner) findViewById(R.id.WBSpinner);
+	ArrayAdapter<CharSequence> WBAdapter = ArrayAdapter.createFromResource(this, R.array.WB_array, android.R.layout.simple_spinner_item);
+	WBAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	WBSpinner.setAdapter(WBAdapter);
+	WBSpinner.setOnItemSelectedListener(new WBOnItemSelectedListener());
+
 	mShutterTime = (ApertusSlider) findViewById(R.id.slider1);
 	mShutterTime.getScrollX();
 	mSliderPos = (TextView) findViewById(R.id.slidepos);
-
 	mShutterTime.SetTextView(mSliderPos);
+    }
 
-	ResolutionTextView = (TextView) findViewById(R.id.ResolutionTextView);
-	ResolutionTextView.setOnClickListener(new View.OnClickListener() {
-	    public void onClick(View view) {
-		//ConnectCamera(view);
+    @Override
+    protected void onResume() {
+	super.onResume();
+
+	Armed = true;
+
+	// Toast Notification
+	Context context = getApplicationContext();
+	CharSequence text = Apertus.GetIP()[0] + " Connection Established";
+	int duration = Toast.LENGTH_SHORT;
+	Toast toast = Toast.makeText(context, text, duration);
+	toast.show();
+    }
+
+    public Camera GetApertusControl() {
+	return Apertus;
+    }
+
+    private class WBOnItemSelectedListener implements OnItemSelectedListener {
+
+	private int callcount = 0;
+
+	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+	    // Evil workaround to prevent this from being called when the
+	    // Activity is initialized
+	    if (callcount > 0) {
+		if (parent.getItemAtPosition(pos).toString().equals("Tungsten")) {
+		    Apertus.SetWhiteBalance(WhiteBalance.TUNGSTEN);
+		} else if (parent.getItemAtPosition(pos).toString().equals("Daylight")) {
+		    Apertus.SetWhiteBalance(WhiteBalance.DAYLIGHT);
+		} else if (parent.getItemAtPosition(pos).toString().equals("Flourescent")) {
+		    Apertus.SetWhiteBalance(WhiteBalance.FLOURESCENT);
+		} else if (parent.getItemAtPosition(pos).toString().equals("Cloudy")) {
+		    Apertus.SetWhiteBalance(WhiteBalance.CLOUDY);
+		} else if (parent.getItemAtPosition(pos).toString().equals("Auto")) {
+		    Apertus.SetWhiteBalance(WhiteBalance.AUTO);
+		} else if (parent.getItemAtPosition(pos).toString().equals("Custom")) {
+		    Apertus.SetWhiteBalance(WhiteBalance.CUSTOM);
+		}
 	    }
-	});
+	    callcount++;
+	}
+
+	public void onNothingSelected(AdapterView<?> parent) {
+	    // Do nothing.
+	}
+    }
+
+    public class ResolutionOnItemSelectedListener implements OnItemSelectedListener {
+	private int callcount = 0;
+
+	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+	    // Evil workaround to prevent this from being called when the
+	    // Activity is initialized
+	    if (callcount > 0) {
+		if (parent.getItemAtPosition(pos).toString().equals("Full")) {
+		    Apertus.SetPreset(CameraPreset.FULL);
+		} else if (parent.getItemAtPosition(pos).toString().equals("Cimax")) {
+		    Apertus.SetPreset(CameraPreset.CIMAX);
+		} else if (parent.getItemAtPosition(pos).toString().equals("Amax")) {
+		    Apertus.SetPreset(CameraPreset.AMAX);
+		} else if (parent.getItemAtPosition(pos).toString().equals("1080p")) {
+		    Apertus.SetPreset(CameraPreset.FULLHD);
+		} else if (parent.getItemAtPosition(pos).toString().equals("720p")) {
+		    Apertus.SetPreset(CameraPreset.SMALLHD);
+		} else if (parent.getItemAtPosition(pos).toString().equals("Custom")) {
+		    Apertus.SetPreset(CameraPreset.CUSTOM);
+		}
+	    }
+	    callcount++;
+	}
+
+	public void onNothingSelected(AdapterView<?> parent) {
+	    // Do nothing.
+	}
     }
 
     public boolean GetNoCameraParameter() {

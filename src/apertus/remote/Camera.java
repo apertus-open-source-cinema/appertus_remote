@@ -18,7 +18,7 @@
  *!  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *!
 -----------------------------------------------------------------------------**/
-package Appertus.Test;
+package apertus.remote;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -210,9 +210,9 @@ public class Camera {
     private String RecordPath;
     private String RecordClipName;
     private String SingleCameraName;
-    private APPertusTestActivity Parent;
+    private Main Parent;
 
-    Camera(APPertusTestActivity parent) {
+    Camera(Main parent) {
 	this.Parent = Parent;
 	this.ImageHeight = 0;
 	this.ImageWidth = 0;

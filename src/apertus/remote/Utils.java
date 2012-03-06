@@ -17,7 +17,7 @@
  *!  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *!
  -----------------------------------------------------------------------------**/
-package Appertus.Test;
+package apertus.remote;
 
 public class Utils {
     // round a float value to a certain number of decimals

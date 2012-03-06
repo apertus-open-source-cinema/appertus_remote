@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, APPertusTestActivity!</string>
-    <string name="app_name">APPertus Test</string>
-    <string name="Connect">Read</string>
-    <string name="Click_Connect">Click Read Button.</string>
+    <string name="app_name">Appertus Remote</string>
+    <string name="Connect">Connect</string>
     <string name="IP">192.168.10.141</string>
 </resources>

@@ -1,4 +1,4 @@
-package Appertus.Test;
+package apertus.remote;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -18,6 +18,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import apertus.remote.R;
+import apertus.remote.R.id;
+import apertus.remote.R.layout;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,12 +36,10 @@ import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-public class APPertusTestActivity extends Activity {
+public class Main extends Activity {
     private static final String Color = null;
     /** Called when the activity is first created. */
-    private Button mReadButton;
     private TextView mTextresult;
-    private TextView mIPField;
     private TextView mSliderPos;
     private ApertusSlider mShutterTime;
     Camera Apertus;
@@ -55,20 +56,8 @@ public class APPertusTestActivity extends Activity {
 	StrictMode.setThreadPolicy(tp);
 
 	Apertus = new Camera(this);
-
-	mReadButton = (Button) findViewById(R.id.button1);
-	mReadButton.setOnClickListener(new View.OnClickListener() {
-	    public void onClick(View v) {
-		try {
-		    // UpdateCameraData();
-		} catch (Exception e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		}
-	    }
-	});
+	
 	mTextresult = (TextView) findViewById(R.id.result1);
-	mIPField = (TextView) findViewById(R.id.IPfield);
 	mShutterTime = (ApertusSlider) findViewById(R.id.slider1);
 	mShutterTime.getScrollX();
 	mSliderPos = (TextView) findViewById(R.id.slidepos);

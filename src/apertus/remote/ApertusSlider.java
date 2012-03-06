@@ -1,4 +1,4 @@
-package Appertus.Test;
+package apertus.remote;
 
 import java.util.ArrayList;
 import android.content.Context;

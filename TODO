@@ -1,0 +1,27 @@
+Appertus Remote
+
+Android Camera Remote
+
+Design Document & Feature Wishlist
+
+
+
+
+Tasks:
+
+    Finish Shutter Time Slider:
+        Set new Shutter time when slider is released
+        add “crosshair” indicator in the middle showing the current setting
+        gray out areas that are not possible with current FPS
+    Create GUI element (label & dropdownmenu) setting Gamma
+    Create GUI element (label & dropdownmenu) setting Blacklevel
+    Create GUI element (label & dropdownmenu) setting Gain
+    Create GUI element (label & dropdownmenu) setting FPS
+        Timelapse
+        Triggered/Free Running mode
+    Create GUI element (Button) To start/stop Recording
+    Create GUI element (text) to see timecode while recording
+    Create GUI element (text) to see remaining free disk space
+    Create GUI element (text) to see current datarate
+    Create GUI table of recorded files on camera: date, size, length, format
+
